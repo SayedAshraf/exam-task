@@ -1,0 +1,93 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "Which of the following languages is used as a scripting language in the Unity 3D game engine?",
+      "correct_answer": "C#",
+      "incorrect_answers": ["Java", "C++", "Objective-C"]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "All of the following programs are classified as raster graphics editors EXCEPT:",
+      "correct_answer": "Inkscape",
+      "incorrect_answers": ["Paint.NET", "GIMP", "Adobe Photoshop"]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "The computer OEM manufacturer Clevo, known for its Sager notebook line, is based in which country?",
+      "correct_answer": "Taiwan",
+      "incorrect_answers": [
+        "United States",
+        "Germany",
+        "China (People&#039;s Republic of)"
+      ]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "Nvidia&#039;s headquarters are based in which Silicon Valley city?",
+      "correct_answer": "Santa Clara",
+      "incorrect_answers": ["Palo Alto", "Cupertino", "Mountain View"]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "What did the name of the Tor Anonymity Network orignially stand for?",
+      "correct_answer": "The Onion Router",
+      "incorrect_answers": [
+        "The Only Router",
+        "The Orange Router",
+        "The Ominous Router"
+      ]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "Generally, which component of a computer draws the most power?",
+      "correct_answer": "Video Card",
+      "incorrect_answers": ["Hard Drive", "Processor", "Power Supply"]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "How fast is USB 3.1 Gen 2 theoretically?",
+      "correct_answer": "10 Gb/s",
+      "incorrect_answers": ["5 Gb/s", "8 Gb/s", "1 Gb/s"]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": ".rs is the top-level domain for what country?",
+      "correct_answer": "Serbia",
+      "incorrect_answers": ["Romania", "Russia", "Rwanda"]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "What was the first Android version specifically optimized for tablets?",
+      "correct_answer": "Honeycomb",
+      "incorrect_answers": ["Eclair", "Froyo", "Marshmellow"]
+    },
+    {
+      "category": "Science: Computers",
+      "type": "multiple",
+      "difficulty": "medium",
+      "question": "Approximately how many Apple I personal computers were created?",
+      "correct_answer": "200",
+      "incorrect_answers": ["100", "500", "1000"]
+    }
+  ]
+}
