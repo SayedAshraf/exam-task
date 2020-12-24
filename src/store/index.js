@@ -1,68 +1,103 @@
 import Vue from "vue";
-import Vuex, { mapActions } from "vuex";
+import Vuex from "vuex";
 import axios from "axios";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+
+
   state: {
+    quizStarted: false,
     questions: [],
-    Quizstarted: false,
     results: {},
-  }, 
-  mutations: {
-    UpdateQuestions(state, questions) {
-      state.questions = questions;
-    },
-    UpdateQuizStarted(state, started) {
-      state.Quizstarted = started;
-    },
-    UpdateResult(state, {result,id}) {
-      state.results[id] = result; 
-     },
+    currentQuestionIndex: 1,
+    quizCompleted: false,
   },
+
   getters: {
-    GetQuestions(state) {
-      return state.questions.map((item, idx) => {
-        var answers = [...item.incorrect_answers, item.correct_answer];
-        var currentIndex = answers.length,
-          temporaryValue,
-          randomIndex;
-        while (0 !== currentIndex) {
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-          temporaryValue = answers[currentIndex];
-          answers[currentIndex] = answers[randomIndex];
-          answers[randomIndex] = temporaryValue;
-        }
+    getQuestions(state) {
+      return state.questions.map((question, index) => {
+        const answers = [
+          ...question.incorrect_answers,
+          question.correct_answer
+        ];
+        const shuffledAnswers = answers.sort(() => Math.random() - 0.5);
         return {
-          id: idx,
-          category: item.category,
-          type: item.type,
-          difficulty: item.difficulty,
-          correct_answer: item.correct_answer,
-          incorrect_answers: item.incorrect_answers,
-          allanswers: answers,
-          question: item.question
+          id: index + 1,
+          question: question.question,
+          type: question.type,
+          answers: shuffledAnswers,
         };
       });
     },
+
+    questionsCount(state) {
+      return state.questions.length;
+    }
   },
-  actions: {
-    fetchQuestion({ commit }) {
-      axios
-        .get(
-          "https://opentdb.com/api.php?amount=10&category=18&difficulty=medium&type=multiple"
-        )
-        .then((res) => {
-          commit("UpdateQuestions", res.data.results);
-          commit("UpdateQuizStarted", true);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.errored = true;
-        });
+
+  mutations: {
+    setQuestions(state, questions) {
+      state.questions = questions;
+    },
+    startQuiz(state) {
+      state.quizStarted = true;
+    },
+    completeQuiz(state) {
+      state.quizCompleted = true;
+    },
+
+    resetAnswers() {
+      state.userAnswers = {};
+    },
+
+    saveAnswer(state, { answer, questionIndex }) {
+      state.answers[questionIndex] = answer;
+    },
+
+    resetQuiz(state) {
+      state.questions = [];
+      state.answers = {};
+      state.quizStarted = false;
+      state.quizCompleted = false;
+    },
+
+    setCurrentQuestionIndex(state, index) {
+      state.currentQuestionIndex = index;
     },
   },
-  modules: {},
+
+  actions: {
+    getQuestions({ commit }, payload = {}) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          commit('resetQuiz');
+          const {
+            amount = 10,
+            category = 18,
+            difficulty = 'medium',
+            type = 'multiple',
+          } = payload;
+
+          const params = {
+            amount,
+            category,
+            difficulty,
+            type,
+          };
+          const queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+          const { data } = await axios.get(`https://opentdb.com/api.php?${queryString}`);
+          commit('setQuestions', data.results);
+          commit('startQuiz');
+          resolve();
+        }
+        catch (error) {
+          reject(error);
+        }
+      });
+
+    },
+  },
+
 });

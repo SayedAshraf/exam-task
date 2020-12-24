@@ -1,21 +1,25 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Question from "@/components/Question.vue";
+import store from '../store/index';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: "/questions/:id",
+    name: "Question",
+    component: () => import('@/views/Question.vue'),
   },
   {
-    path: "/question/:id",
-    name: "Question",
-    component: Question,
-  },
+    path: "/results",
+    name: "results",
+    component: () => import("@/views/Result.vue"),
+    beforeEnter: (to, from, next) => {
+      if(store.state.quizCompleted) {
+        next();
+      }
+    }
+  }
 ];
 
 const router = new VueRouter({

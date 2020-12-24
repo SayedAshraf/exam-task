@@ -1,16 +1,41 @@
 <template>
   <div id="app">
     <app-header />
-    <router-view />
+    <b-container class="my-5">
+      <router-view />
+    </b-container>
   </div>
 </template>
 
 <script>
 import AppHeader from "@/components/AppHeader.vue";
+
+import { mapActions } from "vuex";
+
 export default {
+
   components: {
-    AppHeader,
+    AppHeader
   },
+
+  methods: {
+    ...mapActions(["getQuestions"]),
+
+    startQuiz() {
+      // this.goToFirstQuestion();
+      this.getQuestions();
+    },
+
+    goToFirstQuestion() {
+      if(this.$route.name !== 'Question') {
+        this.$router.push("/questions/1");
+      }
+    }
+  },
+
+  created() {
+    this.startQuiz();
+  }
 };
 </script>
 
